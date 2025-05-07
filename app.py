@@ -110,7 +110,6 @@ if 'words' in df.columns:
         benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
         fig2 = px.scatter(
         benchmark_df.assign(y=benchmark_df['jitter_words']),
-            benchmark_df,
             x="words",
             y='y', hover_data={"words": True, "y": False},
             hover_name="name",
