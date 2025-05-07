@@ -47,7 +47,7 @@ st.sidebar.header("Chart Type")
 plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Violin Plot", "Histogram", "Bar Chart"])
 
 # Title
-st.title("PDF Report Benchmarking")
+st.title("CSRD Report Benchmarking")
 st.subheader(f"Distribution of Pages ({benchmark_label})")
 
 # Focal value
