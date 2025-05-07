@@ -1,54 +1,58 @@
-# 📊 Sustainability Report Benchmarking Dashboard
+# 📊 CSRD Report Benchmarking Dashboard
 
-This Streamlit-based dashboard benchmarks a focal company's sustainability reporting (e.g., report length and word count) against peer firms using a variety of comparison groups and visualization types.
+This Streamlit dashboard benchmarks a focal company's sustainability reporting output (PDF length and word count) against peer firms using a variety of comparison groups and interactive visualizations.
 
 ---
 
 ## 🎯 Purpose
 
-This tool is built for researchers and practitioners to analyze how comprehensive a firm’s report is compared to its peers. It focuses on:
-- **Number of Pages** (`pagespdf`)
-- **Estimated Word Count** (`words`)
+This tool helps researchers and practitioners understand how a firm's CSRD-aligned report compares to others, especially in terms of:
+- 📄 **Number of Pages**
+- 📝 **Estimated Word Count**
 
 ---
 
 ## ⚙️ Features
 
-- **Select a focal company**
-- **Compare to**:
+- 🔍 **Select a focal company**
+- 🧑‍🤝‍🧑 **Compare to**:
   - All CSRD First Wave
   - Country Peers
   - Sector Peers
   - Market Cap Peers (Small/Mid/Large)
   - Rating Peers (Low/Mid/High)
-- **Chart types**:
-  - Strip Plot (interactive with red dot + tooltip)
-  - Violin Plot (clean, hover disabled)
-  - Histogram
-  - Bar Chart (benchmark average + red line for focal)
+- 👥 **Or manually select up to 3 peer companies** to benchmark against
+- 📊 **Choose from 3 chart types**:
+  - **Strip Plot** (interactive scatter with hover + average line)
+  - **Bar Chart** (benchmark average vs focal)
+  - **Histogram** (disabled if ≤3 peers)
+- 📌 Visuals include:
+  - 🔴 **Dashed red line** and dot = focal company
+  - ⚪ **Grey line** = average of selected peer group
+- 📄 Tabular display of benchmark data
 
 ---
 
-## 📁 File Structure
+## 📁 Project Structure
 
 ```
 📦 benchmark-app/
 ├── app.py                # Main Streamlit app
-├── report_data.csv       # Input data with company-level metrics
-├── requirements.txt      # Dependencies for local or Streamlit Cloud
+├── report_data.csv       # Firm-level input dataset
+├── requirements.txt      # Dependencies
 └── README.md             # This file
 ```
 
 ---
 
-## 🔍 Data Columns (report_data.csv)
+## 🔢 Data Columns (report_data.csv)
 
 | Column                 | Description                                      |
 |------------------------|--------------------------------------------------|
 | `name`                 | Company name                                     |
 | `country`              | Country of registration                          |
-| `trbceconomicsectorname` | Sector (TRBC-style naming)                   |
-| `pagespdf`             | PDF page count of the sustainability report      |
+| `trbceconomicsectorname` | Sector (TRBC-style)                           |
+| `pagespdf`             | PDF page count                                   |
 | `words`                | Estimated word count                             |
 | `market_cap_tercile`   | Market cap tercile (1=Small, 3=Large)            |
 | `rating_tercile`       | ESG rating tercile (1=Low, 3=High)               |
@@ -63,18 +67,18 @@ git clone https://github.com/YOUR_ORG/benchmark-app.git
 cd benchmark-app
 ```
 
-2. **Create and activate a virtual environment**:
+2. **Set up virtual environment**:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. **Install dependencies**:
+3. **Install requirements**:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Run the app**:
+4. **Launch the app**:
 ```bash
 streamlit run app.py
 ```
@@ -83,48 +87,31 @@ streamlit run app.py
 
 ## ☁️ Deploy on Streamlit Cloud
 
-1. Push all files (`app.py`, `report_data.csv`, `requirements.txt`) to GitHub.
-2. Go to [https://streamlit.io/cloud](https://streamlit.io/cloud).
-3. Click “New app” → select your repo.
-4. Deploy. Done!
+1. Push `app.py`, `report_data.csv`, and `requirements.txt` to GitHub
+2. Go to [https://streamlit.io/cloud](https://streamlit.io/cloud)
+3. Click “New app” → select your repo → Deploy
 
-The app auto-refreshes when changes are pushed.
-
----
-
-## 🧪 Ideas for Future Work
-
-Here are things your team can improve or add:
-
-- 📌 Add KPI-level benchmarking (e.g., ESRS datapoint coverage)
-- 🔄 Add ability to select **multiple filters** (e.g., same country + sector)
-- 📈 Add **historical report growth** (multi-year data support)
-- 📤 Add **downloadable summary reports**
-- 🔐 Add **login access** for internal vs. public view
-- 📊 Add KPI scatter plots (pages vs. emissions, etc.)
+Changes will auto-refresh with each push.
 
 ---
 
-## 🤝 Handover Notes
+## 💡 Future Improvements
 
-PhD students: This app is production-ready and fully functional.
-You can:
-- Edit or replace `report_data.csv`
-- Modify `app.py` to add features
-- Clone the repo to create your own dashboard variants
-
-Start with `app.py`, and let Streamlit rerun on save (`streamlit run app.py`).
+- Add more CSRD-specific metrics (e.g. datapoint coverage)
+- Add export button for benchmarks (PDF or Excel)
+- Implement KPI-level comparisons
+- Allow compound filters (e.g. country + sector)
 
 ---
 
 ## 🧾 License
 
-MIT License. Use and extend freely.
+MIT License. Free to use, adapt, and extend.
 
 ---
 
-## 🙋 Need Help?
+## 👩‍🔬 Maintainer Notes
 
-Contact your project advisor or team lead.
-
----
+- Swap `report_data.csv` to update firms or metrics
+- Edit `app.py` to extend logic
+- Ask your advisor before pushing changes to the main branch
