@@ -62,15 +62,16 @@ focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
 if plot_type == "Strip Plot":
     benchmark_df['jitter'] = 0.1 * np.random.randn(len(benchmark_df))
     fig = px.scatter(
+        benchmark_df.assign(y=benchmark_df['jitter']),
         benchmark_df,
         x="pagespdf",
-        y="jitter",
+        y='y', hover_data={"pagespdf": True, "y": False},
         hover_name="name",
         title=f"Distribution of Pages ({benchmark_label})",
         height=400
     )
     focal_point = df[df['name'] == focal_company]
-    fig.add_trace(px.scatter(focal_point, x='pagespdf', y=[0], hover_name='name').update_traces(marker=dict(color='red', size=10)).data[0])
+    fig.add_trace(px.scatter(focal_point.assign(y=0), x='pagespdf', y='y', hover_name='name', hover_data={"pagespdf": False, "y": False}).update_traces(marker=dict(color='red', size=10)).data[0])
     fig.add_vline(
         x=focal_pages,
         line_dash="dash",
@@ -109,15 +110,16 @@ if 'words' in df.columns:
     if plot_type == "Strip Plot":
         benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
         fig2 = px.scatter(
+        benchmark_df.assign(y=benchmark_df['jitter_words']),
             benchmark_df,
             x="words",
-            y="jitter_words",
+            y='y', hover_data={"words": True, "y": False},
             hover_name="name",
             title=f"Distribution of Words ({benchmark_label})",
             height=400
         )
         focal_point2 = df[df['name'] == focal_company]
-        fig2.add_trace(px.scatter(focal_point2, x='words', y=[0], hover_name='name').update_traces(marker=dict(color='red', size=10)).data[0])
+        fig2.add_trace(px.scatter(focal_point2.assign(y=0), x='words', y='y', hover_name='name', hover_data={"words": False, "y": False}).update_traces(marker=dict(color='red', size=10)).data[0])
         fig2.add_vline(
             x=focal_words,
             line_dash="dash",
