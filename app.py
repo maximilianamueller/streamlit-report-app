@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
+import plotly.express as px
 
 # Load data
 df = pd.read_csv("report_data.csv")
@@ -57,32 +59,47 @@ st.subheader(f"Distribution of Pages ({benchmark_label})")
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
 
 # Pages Plot
-fig, ax = plt.subplots(figsize=(10, 6))
 if plot_type == "Strip Plot":
-    sns.stripplot(data=benchmark_df, x='pagespdf', size=8, jitter=True, ax=ax, color='gray')
-    ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-    ax.set_xlabel("Number of Pages")
-    ax.set_yticks([])
-elif plot_type == "Violin Plot":
-    sns.violinplot(data=benchmark_df, x='pagespdf', ax=ax, inner="box", color='lightgray')
-    ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-    ax.set_xlabel("Number of Pages")
-    ax.set_yticks([])
-elif plot_type == "Histogram":
-    sns.histplot(benchmark_df['pagespdf'], bins=20, kde=False, ax=ax, color='lightgray')
-    ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-    ax.set_xlabel("Number of Pages")
-    ax.set_ylabel("Number of Companies")
-elif plot_type == "Bar Chart":
-    avg_pages = benchmark_df['pagespdf'].mean()
-    sns.barplot(x=["Benchmark Group"], y=[avg_pages], ax=ax, color='lightgray')
-    ax.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-    ax.set_ylabel("Number of Pages")
-    ax.set_title("Pages Comparison")
-ax.legend()
-st.pyplot(fig)
+    benchmark_df['jitter'] = 0.1 * np.random.randn(len(benchmark_df))
+    fig = px.scatter(
+        benchmark_df,
+        x="pagespdf",
+        y="jitter",
+        hover_name="name",
+        title=f"Distribution of Pages ({benchmark_label})",
+        height=400
+    )
+    fig.add_vline(
+        x=focal_pages,
+        line_dash="dash",
+        line_color="red",
+        annotation_text=f"{focal_company} ({focal_pages} pages)",
+        annotation_position="top right"
+    )
+    fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    fig, ax = plt.subplots(figsize=(10, 6))
+    if plot_type == "Violin Plot":
+        sns.violinplot(data=benchmark_df, x='pagespdf', ax=ax, inner="box", color='lightgray')
+        ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
+        ax.set_xlabel("Number of Pages")
+        ax.set_yticks([])
+    elif plot_type == "Histogram":
+        sns.histplot(benchmark_df['pagespdf'], bins=20, kde=False, ax=ax, color='lightgray')
+        ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
+        ax.set_xlabel("Number of Pages")
+        ax.set_ylabel("Number of Companies")
+    elif plot_type == "Bar Chart":
+        avg_pages = benchmark_df['pagespdf'].mean()
+        sns.barplot(x=["Benchmark Group"], y=[avg_pages], ax=ax, color='lightgray')
+        ax.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
+        ax.set_ylabel("Number of Pages")
+        ax.set_title("Pages Comparison")
+    ax.legend()
+    st.pyplot(fig)
 
-# Words Plot
+# Words Plot (unchanged, still static)
 if 'words' in df.columns:
     st.subheader(f"Distribution of Words ({benchmark_label})")
     focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
