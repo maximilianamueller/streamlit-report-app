@@ -63,22 +63,22 @@ if plot_type == "Strip Plot":
                               x="pagespdf", y="y", hover_name="name",
                               hover_data={"pagespdf": False, "y": False})
                   .update_traces(marker=dict(color='red', size=10)).data[0])
-    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
+    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
 elif plot_type == "Violin Plot":
     fig = px.violin(benchmark_df, x="pagespdf", box=True, points=False, hover_data={})
     fig.update_traces(hoverinfo="skip", hovertemplate=None)
-    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
+    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(xaxis_title="Pages", yaxis=dict(visible=False))
 elif plot_type == "Histogram":
     fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
-    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
+    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(xaxis_title="Pages", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
     avg_pages = benchmark_df["pagespdf"].mean()
     fig = go.Figure()
     fig.add_trace(go.Bar(x=["Benchmark Group"], y=[avg_pages], marker_color="lightgray", name="Average"))
-    fig.add_hline(y=focal_pages, line_dash="dash", line_color="red", name="Focal")
+    fig.add_hline(y=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(yaxis_title="Pages")
 st.plotly_chart(fig, use_container_width=True)
 
@@ -93,22 +93,22 @@ if plot_type == "Strip Plot":
                                x="words", y="y", hover_name="name",
                                hover_data={"words": False, "y": False})
                    .update_traces(marker=dict(color='red', size=10)).data[0])
-    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
+    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
 elif plot_type == "Violin Plot":
     fig2 = px.violin(benchmark_df, x="words", box=True, points=False, hover_data={})
     fig2.update_traces(hoverinfo="skip", hovertemplate=None)
-    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
+    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(xaxis_title="Words", yaxis=dict(visible=False))
 elif plot_type == "Histogram":
     fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
-    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
+    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(xaxis_title="Words", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
     avg_words = benchmark_df["words"].mean()
     fig2 = go.Figure()
     fig2.add_trace(go.Bar(x=["Benchmark Group"], y=[avg_words], marker_color="lightgray", name="Average"))
-    fig2.add_hline(y=focal_words, line_dash="dash", line_color="red", name="Focal")
+    fig2.add_hline(y=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(yaxis_title="Words")
 st.plotly_chart(fig2, use_container_width=True)
 
