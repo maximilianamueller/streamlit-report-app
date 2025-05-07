@@ -63,7 +63,6 @@ if plot_type == "Strip Plot":
     benchmark_df['jitter'] = 0.1 * np.random.randn(len(benchmark_df))
     fig = px.scatter(
         benchmark_df.assign(y=benchmark_df['jitter']),
-        benchmark_df,
         x="pagespdf",
         y='y', hover_data={"pagespdf": True, "y": False},
         hover_name="name",
