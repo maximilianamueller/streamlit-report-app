@@ -12,19 +12,35 @@ focal_company = st.sidebar.selectbox("Select a focal company:", df['name'].dropn
 
 # Benchmark selection
 st.sidebar.header("Benchmark Group")
-benchmark_type = st.sidebar.radio("Compare to:", ["All Firms", "Country", "Economic Sector"])
+benchmark_type = st.sidebar.radio(
+    "Compare to:",
+    ["All Firms", "Country", "Economic Sector", "Market Cap Tercile", "Employee Tercile", "Rating Tercile"]
+)
 
+# Determine benchmark group
+benchmark_label = "All Firms"
 if benchmark_type == "All Firms":
     benchmark_df = df
-    benchmark_label = "All Firms"
 elif benchmark_type == "Country":
-    country = df.loc[df['name'] == focal_company, 'country'].values[0]
-    benchmark_df = df[df['country'] == country]
-    benchmark_label = f"Country: {country}"
-else:  # Economic Sector
-    sector = df.loc[df['name'] == focal_company, 'trbceconomicsectorname'].values[0]
-    benchmark_df = df[df['trbceconomicsectorname'] == sector]
-    benchmark_label = f"Sector: {sector}"
+    value = df.loc[df['name'] == focal_company, 'country'].values[0]
+    benchmark_df = df[df['country'] == value]
+    benchmark_label = f"Country: {value}"
+elif benchmark_type == "Economic Sector":
+    value = df.loc[df['name'] == focal_company, 'trbceconomicsectorname'].values[0]
+    benchmark_df = df[df['trbceconomicsectorname'] == value]
+    benchmark_label = f"Sector: {value}"
+elif benchmark_type == "Market Cap Tercile":
+    value = df.loc[df['name'] == focal_company, 'market_cap_tercile'].values[0]
+    benchmark_df = df[df['market_cap_tercile'] == value]
+    benchmark_label = f"Market Cap Tercile: {int(value)}"
+elif benchmark_type == "Employee Tercile":
+    value = df.loc[df['name'] == focal_company, 'emp_tercile'].values[0]
+    benchmark_df = df[df['emp_tercile'] == value]
+    benchmark_label = f"Employee Tercile: {int(value)}"
+elif benchmark_type == "Rating Tercile":
+    value = df.loc[df['name'] == focal_company, 'rating_tercile'].values[0]
+    benchmark_df = df[df['rating_tercile'] == value]
+    benchmark_label = f"Rating Tercile: {int(value)}"
 
 # Plot type selection
 st.sidebar.header("Chart Type")
@@ -34,97 +50,64 @@ plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Violin Plot", 
 st.title("PDF Report Benchmarking")
 st.subheader(f"Distribution of Pages ({benchmark_label})")
 
-# Focal values
+# Focal value
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
 
-# First Plot: Pages
+# Pages Plot
 fig, ax = plt.subplots(figsize=(10, 6))
 if plot_type == "Strip Plot":
     sns.stripplot(data=benchmark_df, x='pagespdf', size=8, jitter=True, ax=ax, color='gray')
     ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
     ax.set_xlabel("Number of Pages")
     ax.set_yticks([])
-
 elif plot_type == "Violin Plot":
     sns.violinplot(data=benchmark_df, x='pagespdf', ax=ax, inner="box", color='lightgray')
     ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
     ax.set_xlabel("Number of Pages")
     ax.set_yticks([])
-
 elif plot_type == "Histogram":
     sns.histplot(benchmark_df['pagespdf'], bins=20, kde=False, ax=ax, color='lightgray')
     ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
     ax.set_xlabel("Number of Pages")
     ax.set_ylabel("Number of Companies")
-
 elif plot_type == "Bar Chart":
     avg_pages = benchmark_df['pagespdf'].mean()
     sns.barplot(x=["Benchmark Group"], y=[avg_pages], ax=ax, color='lightgray')
     ax.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
     ax.set_ylabel("Number of Pages")
     ax.set_title("Pages Comparison")
-
 ax.legend()
 st.pyplot(fig)
 
-# Second Plot: Words
+# Words Plot
 if 'words' in df.columns:
     st.subheader(f"Distribution of Words ({benchmark_label})")
     focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
     fig2, ax2 = plt.subplots(figsize=(10, 6))
-
     if plot_type == "Strip Plot":
         sns.stripplot(data=benchmark_df, x='words', size=8, jitter=True, ax=ax2, color='gray')
         ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
         ax2.set_xlabel("Number of Words")
         ax2.set_yticks([])
-
     elif plot_type == "Violin Plot":
         sns.violinplot(data=benchmark_df, x='words', ax=ax2, inner="box", color='lightgray')
         ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
         ax2.set_xlabel("Number of Words")
         ax2.set_yticks([])
-
     elif plot_type == "Histogram":
         sns.histplot(benchmark_df['words'], bins=20, kde=False, ax=ax2, color='lightgray')
         ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
         ax2.set_xlabel("Number of Words")
         ax2.set_ylabel("Number of Companies")
-
     elif plot_type == "Bar Chart":
         avg_words = benchmark_df['words'].mean()
         sns.barplot(x=["Benchmark Group"], y=[avg_words], ax=ax2, color='lightgray')
         ax2.axhline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
         ax2.set_ylabel("Number of Words")
         ax2.set_title("Words Comparison")
-
     ax2.legend()
     st.pyplot(fig2)
 
-
-# ---- Additional Contextual Charts by Tercile ----
-st.subheader("Pages by Market Cap Tercile")
-if 'market_cap_tercile' in df.columns:
-    fig3, ax3 = plt.subplots(figsize=(8, 5))
-    sns.barplot(data=benchmark_df, x='market_cap_tercile', y='pagespdf', ci=None, ax=ax3, palette='Blues')
-    ax3.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-    ax3.set_xlabel("Market Cap Tercile (1=Small, 3=Large)")
-    ax3.set_ylabel("Avg. Pages")
-    ax3.set_title("Average Report Length by Market Cap Tercile")
-    ax3.legend()
-    st.pyplot(fig3)
-
-st.subheader("Pages by Rating Tercile")
-if 'rating_tercile' in df.columns:
-    fig4, ax4 = plt.subplots(figsize=(8, 5))
-    sns.barplot(data=benchmark_df, x='rating_tercile', y='pagespdf', ci=None, ax=ax4, palette='Greens')
-    ax4.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-    ax4.set_xlabel("Rating Tercile (1=Low, 3=High)")
-    ax4.set_ylabel("Avg. Pages")
-    ax4.set_title("Average Report Length by Rating Tercile")
-    ax4.legend()
-    st.pyplot(fig4)
-
-# Table
+# Data Table
 st.subheader("Benchmark Data")
 st.dataframe(benchmark_df[['name', 'country', 'trbceconomicsectorname', 'pagespdf', 'words']].sort_values(by='pagespdf'))
