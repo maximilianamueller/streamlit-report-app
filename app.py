@@ -76,11 +76,13 @@ if plot_type == "Strip Plot":
                               hover_data={"pagespdf": False, "y": False})
                   .update_traces(marker=dict(color='red', size=10)).data[0])
     fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
+    fig.add_trace(go.Scatter(x=[None], y=[None], mode="lines", line=dict(color="lightgrey"), name="Peer Average"))
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
 elif plot_type == "Histogram":
     fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
     fig.add_vline(x=benchmark_df["pagespdf"].mean(), line_color="lightgrey", line_width=1, opacity=0.6)
     fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
+    fig.add_trace(go.Scatter(x=[None], y=[None], mode="lines", line=dict(color="lightgrey"), name="Peer Average"))
     fig.update_layout(xaxis_title="Pages", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
     avg_pages = benchmark_df["pagespdf"].mean()
@@ -103,11 +105,13 @@ if plot_type == "Strip Plot":
                                hover_data={"words": False, "y": False})
                    .update_traces(marker=dict(color='red', size=10)).data[0])
     fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
+    fig2.add_trace(go.Scatter(x=[None], y=[None], mode="lines", line=dict(color="lightgrey"), name="Peer Average"))
     fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
 elif plot_type == "Histogram":
     fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
     fig2.add_vline(x=benchmark_df["words"].mean(), line_color="lightgrey", line_width=1, opacity=0.6)
     fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
+    fig2.add_trace(go.Scatter(x=[None], y=[None], mode="lines", line=dict(color="lightgrey"), name="Peer Average"))
     fig2.update_layout(xaxis_title="Words", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
     avg_words = benchmark_df["words"].mean()
