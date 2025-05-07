@@ -69,6 +69,8 @@ if plot_type == "Strip Plot":
         title=f"Distribution of Pages ({benchmark_label})",
         height=400
     )
+    focal_point = df[df['name'] == focal_company]
+    fig.add_trace(px.scatter(focal_point, x='pagespdf', y=[0], hover_name='name').update_traces(marker=dict(color='red', size=10)).data[0])
     fig.add_vline(
         x=focal_pages,
         line_dash="dash",
@@ -105,10 +107,29 @@ if 'words' in df.columns:
     focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
     fig2, ax2 = plt.subplots(figsize=(10, 6))
     if plot_type == "Strip Plot":
-        sns.stripplot(data=benchmark_df, x='words', size=8, jitter=True, ax=ax2, color='gray')
-        ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
-        ax2.set_xlabel("Number of Words")
-        ax2.set_yticks([])
+        benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
+        fig2 = px.scatter(
+            benchmark_df,
+            x="words",
+            y="jitter_words",
+            hover_name="name",
+            title=f"Distribution of Words ({benchmark_label})",
+            height=400
+        )
+        focal_point2 = df[df['name'] == focal_company]
+        fig2.add_trace(px.scatter(focal_point2, x='words', y=[0], hover_name='name').update_traces(marker=dict(color='red', size=10)).data[0])
+        fig2.add_vline(
+            x=focal_words,
+            line_dash="dash",
+            line_color="red",
+            annotation_text=f"{focal_company} ({focal_words:,} words)",
+            annotation_position="top right"
+        )
+        fig2.update_layout(
+            yaxis=dict(visible=False),
+            xaxis_title="Words"
+        )
+        st.plotly_chart(fig2, use_container_width=True)
     elif plot_type == "Violin Plot":
         sns.violinplot(data=benchmark_df, x='words', ax=ax2, inner="box", color='lightgray')
         ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
