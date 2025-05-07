@@ -101,6 +101,30 @@ if 'words' in df.columns:
     ax2.legend()
     st.pyplot(fig2)
 
+
+# ---- Additional Contextual Charts by Tercile ----
+st.subheader("Pages by Market Cap Tercile")
+if 'market_cap_tercile' in df.columns:
+    fig3, ax3 = plt.subplots(figsize=(8, 5))
+    sns.barplot(data=benchmark_df, x='market_cap_tercile', y='pagespdf', ci=None, ax=ax3, palette='Blues')
+    ax3.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
+    ax3.set_xlabel("Market Cap Tercile (1=Small, 3=Large)")
+    ax3.set_ylabel("Avg. Pages")
+    ax3.set_title("Average Report Length by Market Cap Tercile")
+    ax3.legend()
+    st.pyplot(fig3)
+
+st.subheader("Pages by Rating Tercile")
+if 'rating_tercile' in df.columns:
+    fig4, ax4 = plt.subplots(figsize=(8, 5))
+    sns.barplot(data=benchmark_df, x='rating_tercile', y='pagespdf', ci=None, ax=ax4, palette='Greens')
+    ax4.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
+    ax4.set_xlabel("Rating Tercile (1=Low, 3=High)")
+    ax4.set_ylabel("Avg. Pages")
+    ax4.set_title("Average Report Length by Rating Tercile")
+    ax4.legend()
+    st.pyplot(fig4)
+
 # Table
 st.subheader("Benchmark Data")
 st.dataframe(benchmark_df[['name', 'country', 'trbceconomicsectorname', 'pagespdf', 'words']].sort_values(by='pagespdf'))
