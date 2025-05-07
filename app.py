@@ -68,9 +68,9 @@ st.subheader(f"Distribution of Pages ({benchmark_label})")
 if plot_type == "Strip Plot":
     benchmark_df['jitter'] = 0.1 * np.random.randn(len(benchmark_df))
     fig = px.scatter(benchmark_df.assign(y=benchmark_df['jitter']),
-    fig.add_vline(x=benchmark_df["pagespdf"].mean(), line_color="lightgrey", line_width=1, opacity=0.6)
                      x="pagespdf", y="y", hover_name="name",
                      hover_data={"pagespdf": True, "y": False})
+    fig.add_vline(x=benchmark_df["pagespdf"].mean(), line_color="lightgrey", line_width=1, opacity=0.6)
     fig.add_trace(px.scatter(df[df['name'] == focal_company].assign(y=0),
                               x="pagespdf", y="y", hover_name="name",
                               hover_data={"pagespdf": False, "y": False})
@@ -95,9 +95,9 @@ st.subheader(f"Distribution of Words ({benchmark_label})")
 if plot_type == "Strip Plot":
     benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
     fig2 = px.scatter(benchmark_df.assign(y=benchmark_df['jitter_words']),
-    fig2.add_vline(x=benchmark_df["words"].mean(), line_color="lightgrey", line_width=1, opacity=0.6)
                       x="words", y="y", hover_name="name",
                       hover_data={"words": True, "y": False})
+    fig2.add_vline(x=benchmark_df["words"].mean(), line_color="lightgrey", line_width=1, opacity=0.6)
     fig2.add_trace(px.scatter(df[df['name'] == focal_company].assign(y=0),
                                x="words", y="y", hover_name="name",
                                hover_data={"words": False, "y": False})
