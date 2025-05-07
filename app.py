@@ -121,7 +121,7 @@ if plot_type == "Strip Plot":
             annotation_position="top right"
         )
         fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
-        st.plotly_chart(fig2, use_container_width=True))
+        st.plotly_chart(fig2, use_container_width=True)
         ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
         ax2.set_xlabel("Number of Words")
         ax2.set_yticks([])
