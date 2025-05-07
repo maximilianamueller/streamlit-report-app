@@ -59,7 +59,8 @@ elif plot_type == "Histogram":
 
 elif plot_type == "Bar Chart":
     avg_pages = benchmark_df['pagespdf'].mean()
-    sns.barplot(x=["Benchmark Average", "Focal Company"], y=[avg_pages, focal_pages], ax=ax, palette='pastel')
+    sns.barplot(x=["Benchmark Group"], y=[avg_pages], ax=ax, color='lightgray')
+    ax.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
     ax.set_ylabel("Number of Pages")
     ax.set_title("Pages Comparison")
 
@@ -92,7 +93,8 @@ if 'words' in df.columns:
 
     elif plot_type == "Bar Chart":
         avg_words = benchmark_df['words'].mean()
-        sns.barplot(x=["Benchmark Average", "Focal Company"], y=[avg_words, focal_words], ax=ax2, palette='pastel')
+        sns.barplot(x=["Benchmark Group"], y=[avg_words], ax=ax2, color='lightgray')
+        ax2.axhline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
         ax2.set_ylabel("Number of Words")
         ax2.set_title("Words Comparison")
 
