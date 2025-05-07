@@ -2,10 +2,282 @@ name,country,trbceconomicsectorname,pagespdf
 AMAG Austria Metall AG,Austria,Basic Materials,115
 Raiffeisen Bank International AG,Austria,Financials,344
 Porr AG,Austria,Industrials,136
+Lenzing AG,Austria,Basic Materials,201
+Erste Group Bank AG,Austria,Financials,212
+Telekom Austria AG,Austria,Technology,88
+OMV AG,Austria,Energy,328
+Verbund AG,Austria,Utilities,192
+Palfinger AG,Austria,Industrials,110
+Semperit Holding AG,Austria,Consumer Cyclicals,134
+Wienerberger AG,Austria,Basic Materials,110
+Mayr-Melnhof Karton AG,Austria,Basic Materials,94
+Schoeller-Bleckmann Oilfield Equipment AG,Austria,Energy,204
+Oesterreichische Post AG,Austria,Industrials,116
 Ucb SA,Belgium,Healthcare,82
 Deceuninck NV,Belgium,Consumer Cyclicals,54
+Groep Brussel Lambert NV,Belgium,Financials,614
 Anheuser-Busch Inbev SA,Belgium,Consumer Non-Cyclicals,37
+Barco NV,Belgium,Technology,58
+Syensqo NV,Belgium,Basic Materials,129
 BW Offshore Ltd,Bermuda,Energy,108
 Coca Cola HBC AG,Switzerland,Consumer Non-Cyclicals,132
+Helvetia Holding AG,Switzerland,Financials,185
+Trifork Group AG,Switzerland,Technology,61
+DSM-Firmenich AG,Switzerland,Consumer Non-Cyclicals,56
 Deutsche Bank AG,Germany,Financials,159
+Bayerische Motoren Werke AG,Germany,Consumer Cyclicals,155
+EnBW Energie Baden Wuerttemberg AG,Germany,Utilities,116
+Continental AG,Germany,Consumer Cyclicals,125
+Lanxess AG,Germany,Basic Materials,138
+Deutsche Post AG,Germany,Industrials,67
+Deutsche Telekom AG,Germany,Technology,85
+Fresenius SE & Co KGaA,Germany,Healthcare,154
+Fresenius Medical Care AG,Germany,Healthcare,103
+Deutsche Boerse AG,Germany,Financials,65
+Bilfinger SE,Germany,Industrials,198
+Covestro AG,Germany,Basic Materials,111
+Hochtief AG,Germany,Industrials,235
+Jungheinrich AG,Germany,Industrials,75
+ProCredit Holding AG,Germany,Financials,147
+Merck KGaA,Germany,Healthcare,193
+GEA Group AG,Germany,Industrials,172
+Puma SE,Germany,Consumer Cyclicals,144
+Rheinmetall AG,Germany,Industrials,61
+RWE AG,Germany,Utilities,113
+Mercedes-Benz Group AG,Germany,Consumer Cyclicals,145
+SAP SE,Germany,Technology,114
+Sartorius AG,Germany,Healthcare,100
+Volkswagen AG,Germany,Consumer Cyclicals,240
+Deutsche Lufthansa AG,Germany,Industrials,134
+Allianz SE,Germany,Financials,133
+Muenchener Rueckversicherungs-Gesellschaft in Muenchen AG,Germany,Financials,103
+Nordex SE,Germany,Industrials,130
+MTU Aero Engines AG,Germany,Industrials,103
+Aixtron SE,Germany,Technology,87
+freenet AG,Germany,Technology,76
+Scout24 SE,Germany,Technology,55
+Brenntag SE,Germany,Basic Materials,61
+Adidas AG,Germany,Consumer Cyclicals,218
+Vonovia SE,Germany,Real Estate,108
+Jenoptik AG,Germany,Technology,64
+TeamViewer SE,Germany,Technology,53
 BASF SE,Germany,Basic Materials,181
+Bayer AG,Germany,Healthcare,144
+Commerzbank AG,Germany,Financials,255
+Daimler Truck Holding AG,Germany,Industrials,98
+E.ON SE,Germany,Utilities,54
+Evonik Industries AG,Germany,Basic Materials,133
+Hensoldt AG,Germany,Industrials,59
+Hapag-Lloyd AG,Germany,Industrials,175
+Knorr Bremse AG,Germany,Industrials,79
+Kion Group AG,Germany,Industrials,130
+K+S AG,Germany,Basic Materials,94
+LEG Immobilien SE,Germany,Real Estate,71
+Dr Ing hc F Porsche AG,Germany,Consumer Cyclicals,89
+Prosiebensat 1 Media SE,Germany,Consumer Cyclicals,87
+RENK Group AG,Germany,Consumer Cyclicals,71
+Schaeffler AG,Germany,Consumer Cyclicals,76
+Talanx AG,Germany,Financials,105
+Traton SE,Germany,Industrials,79
+Uniper SE,Germany,Utilities,159
+Wacker Chemie AG,Germany,Basic Materials,108
+Zalando SE,Germany,Technology,131
+Carlsberg A/S,Denmark,Consumer Non-Cyclicals,59
+Copenhagen Airports A/S,Denmark,Industrials,97
+FLSmidth & Co A/S,Denmark,Basic Materials,70
+AP Moeller - Maersk A/S,Denmark,Industrials,83
+MT Hoejgaard Holding A/S,Denmark,Industrials,65
+Genmab A/S,Denmark,Healthcare,57
+GN Store Nord A/S,Denmark,Technology,65
+Danske Bank A/S,Denmark,Financials,84
+Solar A/S,Denmark,Industrials,55
+Nkt A/S,Denmark,Industrials,60
+Bavarian Nordic A/S,Denmark,Healthcare,72
+Spar Nord Bank A/S,Denmark,Financials,60
+DSV A/S,Denmark,Industrials,43
+Oersted A/S,Denmark,Utilities,101
+Pandora A/S,Denmark,Consumer Cyclicals,55
+Novozymes A/S,Denmark,Basic Materials,70
+ISS A/S,Denmark,Industrials,52
+NNIT A/S,Denmark,Technology,75
+Royal Unibrew A/S,Denmark,Consumer Non-Cyclicals,70
+Tryg A/S,Denmark,Financials,79
+DFDS A/S,Denmark,Industrials,74
+Demant A/S,Denmark,Healthcare,66
+Ringkjoebing Landbobank A/S,Denmark,Financials,99
+Nilfisk Holding A/S,Denmark,Industrials,71
+Netcompany Group A/S,Denmark,Technology,93
+Vestas Wind Systems A/S,Denmark,Energy,82
+ALK-Abello A/S,Denmark,Healthcare,70
+H Lundbeck A/S,Denmark,Healthcare,86
+Novo Nordisk A/S,Denmark,Healthcare,54
+TKM Grupp AS,Estonia,Consumer Non-Cyclicals,58
+Aena SME SA,Spain,Industrials,303
+Cellnex Telecom SA,Spain,Technology,305
+Amadeus IT Group SA,Spain,Technology,210
+Banco Bilbao Vizcaya Argentaria SA,Spain,Financials,340
+Banco Santander SA,Spain,Financials,214
+Acciona SA,Spain,Industrials,439
+EDP Renovaveis SA,Portugal,Utilities,209
+Endesa SA,Spain,Utilities,265
+Enagas SA,Spain,Energy,218
+Acerinox SA,Spain,Basic Materials,128
+CaixaBank SA,Spain,Financials,388
+Iberdrola SA,Spain,Utilities,413
+Industria de Diseno Textil SA,Spain,Consumer Cyclicals,296
+Minor Hotels Europe & Americas SA,Spain,Consumer Cyclicals,298
+Grifols SA,Spain,Healthcare,235
+Repsol SA,Spain,Energy,204
+Prosegur Compania de Seguridad SA,Spain,Industrials,209
+International Consolidated Airlines Group SA,United Kingdom,Industrials,69
+Telefonica SA,Spain,Technology,180
+Kesko Oyj,Finland,Consumer Non-Cyclicals,71
+Tietoevry Oyj,Finland,Technology,79
+Fiskars Oyj Abp,Finland,Consumer Cyclicals,102
+Huhtamaki Oyj,Finland,Basic Materials,73
+Metsa Board Oyj,Finland,Basic Materials,46
+Nokia Oyj,Finland,Technology,105
+Wartsila Oyj Abp,Finland,Industrials,46
+Kemira Oyj,Finland,Basic Materials,77
+Nokian Renkaat Oyj,Finland,Consumer Cyclicals,102
+Konecranes Abp,Finland,Industrials,85
+Stora Enso Oyj,Finland,Basic Materials,59
+UPM-Kymmene Oyj,Finland,Basic Materials,61
+HKFoods Oyj,Finland,Consumer Non-Cyclicals,88
+Atria Oyj,Finland,Consumer Non-Cyclicals,52
+Fortum Oyj,Finland,Utilities,74
+Elisa Oyj,Finland,Technology,66
+Etteplan Oyj,Finnland,Industrials,79
+Neste Oyj,Finland,Energy,50
+Kone Oyj,Finland,Industrials,54
+Orion Oyj,Finland,Healthcare,82
+Nordea Bank Abp,Finland,Financials,111
+Sitowise Group Oyj,Finland,Industrials,66
+Kempower Oyj,Finnland,Industrials,106
+WithSecure Oyj,Finland,Technology,76
+Sampo Oyj,Finland,Financials,79
+Finnair Oyj,Finland,Industrials,109
+Kalmar Oyj,Finland,Industrials,51
+Credit Agricole SA,France,Financials,165
+Sopra Steria Group SA,France,Technology,144
+Atos SE,France,Technology,151
+Teleperformance SE,France,Industrials,112
+Hermes International SCA,France,Consumer Cyclicals,175
+Television Francaise 1 SA,France,Consumer Cyclicals,104
+Covivio SA,France,Real Estate,231
+Safran SA,France,Industrials,124
+L'Air Liquide Societe Anonyme pour l'Etude et l'Exploitation des Procedes Georges Claude SA,France,Basic Materials,104
+TotalEnergies SE,France,Energy,146
+L'Oreal SA,France,Consumer Non-Cyclicals,98
+Accor SA,France,Consumer Cyclicals,149
+Sanofi SA,France,Healthcare,162
+AXA SA,France,Financials,143
+Danone SA,France,Consumer Non-Cyclicals,296
+Imerys SA,France,Basic Materials,172
+LVMH Moet Hennessy Louis Vuitton SE,France,Consumer Cyclicals,194
+Kering SA,France,Consumer Cyclicals,110
+EssilorLuxottica SA,France,Healthcare,154
+Schneider Electric SE,France,Industrials,186
+Veolia Environnement SA,France,Utilities,146
+Compagnie de Saint Gobain SA,France,Consumer Cyclicals,130
+Capgemini SE,France,Technology,233
+Vinci SA,France,Industrials,91
+Vivendi SE,France,Consumer Cyclicals,92
+Societe Generale SA,France,Financials,114
+BNP Paribas SA,France,Financials,196
+Renault SA,France,Consumer Cyclicals,151
+Orange SA,France,Technology,138
+Engie SA,France,Utilities,156
+Rexel SA,France,Industrials,156
+Getlink SE,France,Industrials,163
+Coface SA,France,Financials,155
+74Software SA,France,Technology,103
+Fnac Darty SA,France,Consumer Cyclicals,138
+Sartorius Stedim Biotech SA,France,Healthcare,92
+Unibail-Rodamco-Westfield SE,France,Real Estate,147
+Thermador Groupe SA,France,Industrials,84
+Dassault Systemes SE,France,Technology,165
+Compagnie Generale des Etablissements Michelin SCA,France,Consumer Cyclicals,141
+Air France KLM SA,France,Industrials,170
+Unilever PLC,United Kingdom,Consumer Non-Cyclicals,77
+RELX PLC,United Kingdom,Technology,35
+Shell PLC,United Kingdom,Energy,100
+Arena Hospitality Group dd,Croatia,Consumer Cyclicals,44
+Hrvatski Telekom dd,Croatia,Technology,51
+Kingspan Group PLC,Ireland,Consumer Cyclicals,49
+Glenveagh Properties PLC,Ireland,Consumer Cyclicals,71
+AIB Group PLC,Ireland,Financials,78
+Eni SpA,Italy,Energy,140
+Edison SpA,Italy,Utilities,160
+Leonardo SpA,Italy,Industrials,112
+Amplifon SpA,Italy,Healthcare,121
+Prysmian SpA,Italy,Industrials,300
+UniCredit SpA,Italy,Financials,186
+VP Bank AG,Liechtenstein,Financials,106
+Ignitis Grupe AB,Lithuania,Utilities,120
+Telia Lietuva AB,Lithuania,Technology,92
+Aroundtown SA,Luxembourg,Real Estate,112
+Allegro.eu SA,Luxembourg,Consumer Cyclicals,68
+InPost SA,Luxembourg,Industrials,90
+Zabka Group SA,Luxembourg,Consumer Non-Cyclicals,68
+Koninklijke KPN NV,Netherlands,Technology,117
+Heineken NV,Netherlands,Consumer Non-Cyclicals,148
+Koninklijke Philips NV,Netherlands,Healthcare,85
+STMicroelectronics NV,Netherlands,Technology,141
+Airbus SE,France,Industrials,109
+Acomo NV,Netherlands,Consumer Non-Cyclicals,56
+ASM International NV,Netherlands,Technology,37
+Koninklijke BAM Groep NV,Netherlands,Industrials,70
+SBM Offshore NV,Netherlands,Energy,84
+Randstad NV,Netherlands,Industrials,60
+Wolters Kluwer NV,Netherlands,Industrials,64
+TKH Group NV,Netherlands,Industrials,75
+AMG Critical Materials NV,Netherlands,Basic Materials,59
+Arcadis NV,Netherlands,Industrials,110
+PostNL NV,Netherlands,Industrials,129
+ASML Holding NV,Netherlands,Technology,164
+NN Group NV,Netherlands,Financials,123
+IMCD NV,Netherlands,Basic Materials,97
+argenx SE,Netherlands,Healthcare,70
+ABN Amro Bank NV,Netherlands,Financials,147
+Ferrari NV,Italy,Consumer Cyclicals,123
+Koninklijke Ahold Delhaize NV,Netherlands,Consumer Non-Cyclicals,124
+ING Groep NV,Netherlands,Financials,61
+Signify NV,Netherlands,Consumer Cyclicals,84
+ASR Nederland NV,Netherlands,Financials,128
+Redcare Pharmacy NV,Netherlands,Consumer Non-Cyclicals,83
+Alfen NV,Netherlands,Industrials,34
+Adyen NV,Netherlands,Technology,95
+TomTom NV,Netherlands,Technology,39
+Cementir Holding NV,Netherlands,Basic Materials,215
+Cabka NV,Netherlands,Basic Materials,35
+Stellantis NV,Netherlands,Consumer Cyclicals,106
+Fugro NV,Netherlands,Energy,63
+Universal Music Group NV,Netherlands,Consumer Cyclicals,50
+Ferrovial SE,Spain,Industrials,146
+Storebrand ASA,Norway,Financials,137
+Norsk Hydro ASA,Norway,Basic Materials,73
+Telenor ASA,Norway,Technology,84
+Equinor ASA,Norway,Energy,103
+Dnb Bank ASA,Norway,Financials,147
+Gjensidige Forsikring ASA,Norway,Financials,112
+Multiconsult ASA,Norway,Industrials,35
+Bank Millennium SA,Poland,Financials,170
+Benefit Systems SA,Poland,Industrials,89
+Santander Bank Polska SA,Poland,Financials,128
+Dino Polska SA,Poland,Consumer Non-Cyclicals,57
+Eurocash SA,Poland,Consumer Non-Cyclicals,127
+Grupa Pracuj SA,Poland,Industrials,88
+LPP SA,Poland,Consumer Cyclicals,102
+CD Projekt SA,Poland,Technology,58
+Bank Polska Kasa Opieki SA,Poland,Financials,174
+Wirtualna Polska Holding SA,Poland,Technology,87
+EDP SA,Portugal,Utilities,279
+Sonae SGPS SA,Portugal,Consumer Non-Cyclicals,187
+NOS SGPS SA,Portugal,Technology,239
+Skandinaviska Enskilda Banken AB,Sweden,Financials,117
+Swedbank AB,Sweden,Financials,154
+Telia Company AB,Sweden,Technology,100
+Axfood AB,Sweden,Consumer Non-Cyclicals,60
+Assa Abloy AB,Sweden,Consumer Cyclicals,50
+Svenska Handelsbanken AB,Sweden,Financials,120
