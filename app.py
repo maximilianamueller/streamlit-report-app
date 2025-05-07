@@ -31,15 +31,14 @@ st.sidebar.header("Chart Type")
 plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Violin Plot", "Histogram"])
 
 # Title
-st.title("PDF Report Page Comparison")
+st.title("PDF Report Benchmarking")
 st.subheader(f"Distribution of Pages ({benchmark_label})")
 
-# Focal value
+# Focal values
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
 
-# Plot
+# First Plot: Pages
 fig, ax = plt.subplots(figsize=(10, 6))
-
 if plot_type == "Strip Plot":
     sns.stripplot(data=benchmark_df, x='pagespdf', size=8, jitter=True, ax=ax, color='gray')
     ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
@@ -61,6 +60,33 @@ elif plot_type == "Histogram":
 ax.legend()
 st.pyplot(fig)
 
+# Second Plot: Words
+if 'words' in df.columns:
+    st.subheader(f"Distribution of Words ({benchmark_label})")
+    focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
+    fig2, ax2 = plt.subplots(figsize=(10, 6))
+
+    if plot_type == "Strip Plot":
+        sns.stripplot(data=benchmark_df, x='words', size=8, jitter=True, ax=ax2, color='gray')
+        ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
+        ax2.set_xlabel("Number of Words")
+        ax2.set_yticks([])
+
+    elif plot_type == "Violin Plot":
+        sns.violinplot(data=benchmark_df, x='words', ax=ax2, inner="box", color='lightgray')
+        ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
+        ax2.set_xlabel("Number of Words")
+        ax2.set_yticks([])
+
+    elif plot_type == "Histogram":
+        sns.histplot(benchmark_df['words'], bins=20, kde=False, ax=ax2, color='lightgray')
+        ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
+        ax2.set_xlabel("Number of Words")
+        ax2.set_ylabel("Number of Companies")
+
+    ax2.legend()
+    st.pyplot(fig2)
+
 # Table
 st.subheader("Benchmark Data")
-st.dataframe(benchmark_df[['name', 'country', 'trbceconomicsectorname', 'pagespdf']].sort_values(by='pagespdf'))
+st.dataframe(benchmark_df[['name', 'country', 'trbceconomicsectorname', 'pagespdf', 'words']].sort_values(by='pagespdf'))
