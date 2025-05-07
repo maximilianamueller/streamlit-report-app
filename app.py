@@ -1,9 +1,8 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 
 # Load data
 df = pd.read_csv("report_data.csv")
@@ -20,17 +19,17 @@ benchmark_type = st.sidebar.radio(
 )
 
 # Determine benchmark group
-benchmark_label = "All Firms"
+benchmark_label = "All CSRD First Wave"
 if benchmark_type == "All CSRD First Wave":
     benchmark_df = df
 elif benchmark_type == "Country Peers":
     value = df.loc[df['name'] == focal_company, 'country'].values[0]
     benchmark_df = df[df['country'] == value]
-    benchmark_label = f"Country: {value}"
+    benchmark_label = f"Country Peers: {value}"
 elif benchmark_type == "Sector Peers":
     value = df.loc[df['name'] == focal_company, 'trbceconomicsectorname'].values[0]
     benchmark_df = df[df['trbceconomicsectorname'] == value]
-    benchmark_label = f"Sector: {value}"
+    benchmark_label = f"Sector Peers: {value}"
 elif benchmark_type == "Market Cap Peers":
     value = df.loc[df['name'] == focal_company, 'market_cap_tercile'].values[0]
     label = 'Small' if value == 1 else 'Mid' if value == 2 else 'Large'
@@ -47,104 +46,70 @@ st.sidebar.header("Chart Type")
 plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Violin Plot", "Histogram", "Bar Chart"])
 
 # Title
-st.title("CSRD Report Benchmarking")
-st.subheader(f"Distribution of Pages ({benchmark_label})")
+st.title("PDF Report Benchmarking")
 
-# Focal value
+# Focal values
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
+focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
 
-# Pages Plot
+# PAGES Plot
+st.subheader(f"Distribution of Pages ({benchmark_label})")
 if plot_type == "Strip Plot":
     benchmark_df['jitter'] = 0.1 * np.random.randn(len(benchmark_df))
-    fig = px.scatter(
-        benchmark_df.assign(y=benchmark_df['jitter']),
-        x="pagespdf",
-        y='y', hover_data={"pagespdf": True, "y": False},
-        hover_name="name",
-        
-        height=400
-    )
-    focal_point = df[df['name'] == focal_company]
-    fig.add_trace(px.scatter(focal_point.assign(y=0), x='pagespdf', y='y', hover_name='name', hover_data={"pagespdf": False, "y": False}).update_traces(marker=dict(color='red', size=10)).data[0])
-    fig.add_vline(
-        x=focal_pages,
-        line_dash="dash",
-        line_color="red",
-        annotation_text=f"{focal_company} ({focal_pages} pages)",
-        annotation_position="top right"
-    )
+    fig = px.scatter(benchmark_df.assign(y=benchmark_df['jitter']),
+                     x="pagespdf", y="y", hover_name="name",
+                     hover_data={"pagespdf": True, "y": False})
+    fig.add_trace(px.scatter(df[df['name'] == focal_company].assign(y=0),
+                              x="pagespdf", y="y", hover_name="name",
+                              hover_data={"pagespdf": False, "y": False})
+                  .update_traces(marker=dict(color='red', size=10)).data[0])
+    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
-    st.plotly_chart(fig, use_container_width=True)
-else:
-    fig, ax = plt.subplots(figsize=(10, 6))
-    if plot_type == "Violin Plot":
-        sns.violinplot(data=benchmark_df, x='pagespdf', ax=ax, inner="box", color='lightgray')
-        ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-        ax.set_xlabel("Number of Pages")
-        ax.set_yticks([])
-    elif plot_type == "Histogram":
-        sns.histplot(benchmark_df['pagespdf'], bins=20, kde=False, ax=ax, color='lightgray')
-        ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-        ax.set_xlabel("Number of Pages")
-        ax.set_ylabel("Number of Companies")
-    elif plot_type == "Bar Chart":
-        avg_pages = benchmark_df['pagespdf'].mean()
-        sns.barplot(x=["Benchmark Group"], y=[avg_pages], ax=ax, color='lightgray')
-        ax.axhline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
-        ax.set_ylabel("Number of Pages")
-        ax.set_title("Pages Comparison")
-    ax.legend()
-    st.pyplot(fig)
+elif plot_type == "Violin Plot":
+    fig = px.violin(benchmark_df, x="pagespdf", box=True, points="all", hover_name="name")
+    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
+    fig.update_layout(xaxis_title="Pages", yaxis=dict(visible=False))
+elif plot_type == "Histogram":
+    fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
+    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
+    fig.update_layout(xaxis_title="Pages", yaxis_title="Number of Companies")
+elif plot_type == "Bar Chart":
+    avg_pages = benchmark_df["pagespdf"].mean()
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=["Benchmark Group"], y=[avg_pages], marker_color="lightgray", name="Average"))
+    fig.add_hline(y=focal_pages, line_dash="dash", line_color="red", name="Focal")
+    fig.update_layout(yaxis_title="Pages")
+st.plotly_chart(fig, use_container_width=True)
 
-# Words Plot (unchanged, still static)
-if 'words' in df.columns:
-    st.subheader(f"Distribution of Words ({benchmark_label})")
-    focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
-    fig2, ax2 = plt.subplots(figsize=(10, 6))
-    if plot_type == "Strip Plot":
-        benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
-        fig2 = px.scatter(
-        benchmark_df.assign(y=benchmark_df['jitter_words']),
-            x="words",
-            y='y', hover_data={"words": True, "y": False},
-            hover_name="name",
-            
-            height=400
-        )
-        focal_point2 = df[df['name'] == focal_company]
-        fig2.add_trace(px.scatter(focal_point2.assign(y=0), x='words', y='y', hover_name='name', hover_data={"words": False, "y": False}).update_traces(marker=dict(color='red', size=10)).data[0])
-        fig2.add_vline(
-            x=focal_words,
-            line_dash="dash",
-            line_color="red",
-            annotation_text=f"{focal_company} ({focal_words:,} words)",
-            annotation_position="top right"
-        )
-        fig2.update_layout(
-            yaxis=dict(visible=False),
-            xaxis_title="Words"
-        )
-        st.plotly_chart(fig2, use_container_width=True)
-    elif plot_type == "Violin Plot":
-        sns.violinplot(data=benchmark_df, x='words', ax=ax2, inner="box", color='lightgray')
-        ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
-        ax2.set_xlabel("Number of Words")
-        ax2.set_yticks([])
-    elif plot_type == "Histogram":
-        sns.histplot(benchmark_df['words'], bins=20, kde=False, ax=ax2, color='lightgray')
-        ax2.axvline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
-        ax2.set_xlabel("Number of Words")
-        ax2.set_ylabel("Number of Companies")
-    elif plot_type == "Bar Chart":
-        avg_words = benchmark_df['words'].mean()
-        sns.barplot(x=["Benchmark Group"], y=[avg_words], ax=ax2, color='lightgray')
-        ax2.axhline(focal_words, color='red', linestyle='--', label=f"{focal_company} ({focal_words:,} words)")
-        ax2.set_ylabel("Number of Words")
-        ax2.set_title("Words Comparison")
-    ax2.legend()
-    if plot_type != "Strip Plot":
-        st.pyplot(fig2)
+# WORDS Plot
+st.subheader(f"Distribution of Words ({benchmark_label})")
+if plot_type == "Strip Plot":
+    benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
+    fig2 = px.scatter(benchmark_df.assign(y=benchmark_df['jitter_words']),
+                      x="words", y="y", hover_name="name",
+                      hover_data={"words": True, "y": False})
+    fig2.add_trace(px.scatter(df[df['name'] == focal_company].assign(y=0),
+                               x="words", y="y", hover_name="name",
+                               hover_data={"words": False, "y": False})
+                   .update_traces(marker=dict(color='red', size=10)).data[0])
+    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
+    fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
+elif plot_type == "Violin Plot":
+    fig2 = px.violin(benchmark_df, x="words", box=True, points="all", hover_name="name")
+    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
+    fig2.update_layout(xaxis_title="Words", yaxis=dict(visible=False))
+elif plot_type == "Histogram":
+    fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
+    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
+    fig2.update_layout(xaxis_title="Words", yaxis_title="Number of Companies")
+elif plot_type == "Bar Chart":
+    avg_words = benchmark_df["words"].mean()
+    fig2 = go.Figure()
+    fig2.add_trace(go.Bar(x=["Benchmark Group"], y=[avg_words], marker_color="lightgray", name="Average"))
+    fig2.add_hline(y=focal_words, line_dash="dash", line_color="red", name="Focal")
+    fig2.update_layout(yaxis_title="Words")
+st.plotly_chart(fig2, use_container_width=True)
 
-# Data Table
+# Table
 st.subheader("Benchmark Data")
 st.dataframe(benchmark_df[['name', 'country', 'trbceconomicsectorname', 'pagespdf', 'words']].sort_values(by='pagespdf'))
