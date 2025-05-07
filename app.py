@@ -16,32 +16,27 @@ focal_company = st.sidebar.selectbox("Select a focal company:", df['name'].dropn
 st.sidebar.header("Benchmark Group")
 benchmark_type = st.sidebar.radio(
     "Compare to:",
-    ["All Firms", "Country", "Economic Sector", "Market Cap Tercile", "Employee Tercile", "Rating Tercile"]
+    ["All CSRD First Wave", "Country Peers", "Sector Peers", "Market Cap Peers", "Rating Peers"]
 )
 
 # Determine benchmark group
 benchmark_label = "All Firms"
-if benchmark_type == "All Firms":
+if benchmark_type == "All CSRD First Wave":
     benchmark_df = df
-elif benchmark_type == "Country":
+elif benchmark_type == "Country Peers":
     value = df.loc[df['name'] == focal_company, 'country'].values[0]
     benchmark_df = df[df['country'] == value]
     benchmark_label = f"Country: {value}"
-elif benchmark_type == "Economic Sector":
+elif benchmark_type == "Sector Peers":
     value = df.loc[df['name'] == focal_company, 'trbceconomicsectorname'].values[0]
     benchmark_df = df[df['trbceconomicsectorname'] == value]
     benchmark_label = f"Sector: {value}"
-elif benchmark_type == "Market Cap Tercile":
+elif benchmark_type == "Market Cap Peers":
     value = df.loc[df['name'] == focal_company, 'market_cap_tercile'].values[0]
     label = 'Small' if value == 1 else 'Mid' if value == 2 else 'Large'
     benchmark_df = df[df['market_cap_tercile'] == value]
     benchmark_label = f"Market Cap Group: {label}"
-elif benchmark_type == "Employee Tercile":
-    value = df.loc[df['name'] == focal_company, 'emp_tercile'].values[0]
-    label = 'Small' if value == 1 else 'Mid' if value == 2 else 'Large'
-    benchmark_df = df[df['emp_tercile'] == value]
-    benchmark_label = f"Employee Size Group: {label}"
-elif benchmark_type == "Rating Tercile":
+elif benchmark_type == "Rating Peers":
     value = df.loc[df['name'] == focal_company, 'rating_tercile'].values[0]
     label = 'Low' if value == 1 else 'Mid' if value == 2 else 'High'
     benchmark_df = df[df['rating_tercile'] == value]
@@ -66,7 +61,7 @@ if plot_type == "Strip Plot":
         x="pagespdf",
         y='y', hover_data={"pagespdf": True, "y": False},
         hover_name="name",
-        title=f"Distribution of Pages ({benchmark_label})",
+        
         height=400
     )
     focal_point = df[df['name'] == focal_company]
@@ -113,7 +108,7 @@ if 'words' in df.columns:
             x="words",
             y='y', hover_data={"words": True, "y": False},
             hover_name="name",
-            title=f"Distribution of Words ({benchmark_label})",
+            
             height=400
         )
         focal_point2 = df[df['name'] == focal_company]
