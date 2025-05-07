@@ -18,9 +18,20 @@ benchmark_type = st.sidebar.radio(
     ["All CSRD First Wave", "Country Peers", "Sector Peers", "Market Cap Peers", "Rating Peers"]
 )
 
+# Peer selection
+peer_selection = st.sidebar.multiselect(
+    "Or choose up to 3 specific peer companies:",
+    options=df["name"].dropna().unique(),
+    default=[],
+    max_selections=3
+)
+
 # Determine benchmark group
 benchmark_label = "All CSRD First Wave"
-if benchmark_type == "All CSRD First Wave":
+if peer_selection:
+    benchmark_df = df[df["name"].isin(peer_selection)]
+    benchmark_label = f"Selected Peers ({len(benchmark_df)} firms)"
+elif benchmark_type == "All CSRD First Wave":
     benchmark_df = df
 elif benchmark_type == "Country Peers":
     value = df.loc[df['name'] == focal_company, 'country'].values[0]
@@ -46,7 +57,7 @@ st.sidebar.header("Chart Type")
 plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Violin Plot", "Histogram", "Bar Chart"])
 
 # Title
-st.title("CSRD Report Benchmarking")
+st.title("PDF Report Benchmarking")
 
 # Focal values
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
