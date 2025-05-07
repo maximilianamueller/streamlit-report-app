@@ -15,7 +15,7 @@ focal_company = st.sidebar.selectbox("Select a focal company:", df['name'].dropn
 st.sidebar.header("Benchmark Group")
 benchmark_type = st.sidebar.radio(
     "Compare to:",
-    ["All CSRD First Wave", "Country Peers", "Sector Peers", "Market Cap Peers", "Rating Peers"]
+    ["Strip Plot", "Bar Chart", "Histogram"]
 )
 
 # Peer selection
@@ -52,7 +52,7 @@ elif benchmark_type == "Rating Peers":
     benchmark_df = df[df['rating_tercile'] == value]
     benchmark_label = f"ESG Rating Group: {label}"
 
-# Plot type selection
+# Chart type selection
 st.sidebar.header("Chart Type")
 plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Bar Chart", "Histogram"])
 
@@ -63,62 +63,78 @@ st.title("CSRD Report Benchmarking")
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
 focal_words = df.loc[df['name'] == focal_company, 'words'].values[0]
 
-# PAGES Plot
+# Pages plot
 st.subheader(f"Distribution of Pages ({benchmark_label})")
 if plot_type == "Strip Plot":
     benchmark_df['jitter'] = 0.1 * np.random.randn(len(benchmark_df))
     fig = px.scatter(benchmark_df.assign(y=benchmark_df['jitter']),
                      x="pagespdf", y="y", hover_name="name",
                      hover_data={"pagespdf": True, "y": False})
+    for peer in peer_selection:
+        if peer != focal_company:
+            xval = df.loc[df["name"] == peer, "pagespdf"].values[0]
+            fig.add_vline(x=xval, line_color="lightgrey", line_width=1, opacity=0.5)
     fig.add_trace(px.scatter(df[df['name'] == focal_company].assign(y=0),
                               x="pagespdf", y="y", hover_name="name",
                               hover_data={"pagespdf": False, "y": False})
                   .update_traces(marker=dict(color='red', size=10)).data[0])
     fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
-elif plot_type == "Histogram":
-    if len(benchmark_df) <= 3:
-        st.warning("Histogram requires more than 3 peers.")
-        fig = go.Figure()
-    else:
-        fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
-    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
-    fig.update_layout(xaxis_title="Pages", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
     avg_pages = benchmark_df["pagespdf"].mean()
     fig = go.Figure()
     fig.add_trace(go.Bar(x=["Benchmark Group"], y=[avg_pages], marker_color="lightgray", name="Average"))
     fig.add_hline(y=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(yaxis_title="Pages")
+elif plot_type == "Histogram":
+    if len(benchmark_df) <= 3:
+        st.warning("Histogram requires more than 3 peers.")
+        fig = go.Figure()
+    else:
+        fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
+        for peer in peer_selection:
+            if peer != focal_company:
+                xval = df.loc[df["name"] == peer, "pagespdf"].values[0]
+                fig.add_vline(x=xval, line_color="lightgrey", line_width=1, opacity=0.5)
+        fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
+        fig.update_layout(xaxis_title="Pages", yaxis_title="Number of Companies")
 st.plotly_chart(fig, use_container_width=True)
 
-# WORDS Plot
+# Words plot
 st.subheader(f"Distribution of Words ({benchmark_label})")
 if plot_type == "Strip Plot":
     benchmark_df['jitter_words'] = 0.1 * np.random.randn(len(benchmark_df))
     fig2 = px.scatter(benchmark_df.assign(y=benchmark_df['jitter_words']),
                       x="words", y="y", hover_name="name",
                       hover_data={"words": True, "y": False})
+    for peer in peer_selection:
+        if peer != focal_company:
+            xval = df.loc[df["name"] == peer, "words"].values[0]
+            fig2.add_vline(x=xval, line_color="lightgrey", line_width=1, opacity=0.5)
     fig2.add_trace(px.scatter(df[df['name'] == focal_company].assign(y=0),
                                x="words", y="y", hover_name="name",
                                hover_data={"words": False, "y": False})
                    .update_traces(marker=dict(color='red', size=10)).data[0])
     fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
-elif plot_type == "Histogram":
-    if len(benchmark_df) <= 3:
-        st.warning("Histogram requires more than 3 peers.")
-        fig2 = go.Figure()
-    else:
-        fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
-    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
-    fig2.update_layout(xaxis_title="Words", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
     avg_words = benchmark_df["words"].mean()
     fig2 = go.Figure()
     fig2.add_trace(go.Bar(x=["Benchmark Group"], y=[avg_words], marker_color="lightgray", name="Average"))
     fig2.add_hline(y=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(yaxis_title="Words")
+elif plot_type == "Histogram":
+    if len(benchmark_df) <= 3:
+        st.warning("Histogram requires more than 3 peers.")
+        fig2 = go.Figure()
+    else:
+        fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
+        for peer in peer_selection:
+            if peer != focal_company:
+                xval = df.loc[df["name"] == peer, "words"].values[0]
+                fig2.add_vline(x=xval, line_color="lightgrey", line_width=1, opacity=0.5)
+        fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
+        fig2.update_layout(xaxis_title="Words", yaxis_title="Number of Companies")
 st.plotly_chart(fig2, use_container_width=True)
 
 # Table
