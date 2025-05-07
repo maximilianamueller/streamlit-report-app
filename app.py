@@ -75,7 +75,7 @@ if plot_type == "Strip Plot":
         annotation_position="top right"
     )
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
-    st.plotly_chart(fig, use_container_width=True))
+    st.plotly_chart(fig, use_container_width=True)
     ax.axvline(focal_pages, color='red', linestyle='--', label=f"{focal_company} ({focal_pages} pages)")
     ax.set_xlabel("Number of Pages")
     ax.set_yticks([])
