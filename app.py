@@ -147,7 +147,8 @@ if 'words' in df.columns:
         ax2.set_ylabel("Number of Words")
         ax2.set_title("Words Comparison")
     ax2.legend()
-    st.pyplot(fig2)
+    if plot_type != "Strip Plot":
+        st.pyplot(fig2)
 
 # Data Table
 st.subheader("Benchmark Data")
