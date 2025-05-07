@@ -67,6 +67,7 @@ if plot_type == "Strip Plot":
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
 elif plot_type == "Violin Plot":
     fig = px.violin(benchmark_df, x="pagespdf", box=True, points=False, hover_data={})
+    fig.update_traces(hoverinfo="skip", hovertemplate=None)
     fig.add_vline(x=focal_pages, line_dash="dash", line_color="red")
     fig.update_layout(xaxis_title="Pages", yaxis=dict(visible=False))
 elif plot_type == "Histogram":
@@ -96,6 +97,7 @@ if plot_type == "Strip Plot":
     fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
 elif plot_type == "Violin Plot":
     fig2 = px.violin(benchmark_df, x="words", box=True, points=False, hover_data={})
+    fig2.update_traces(hoverinfo="skip", hovertemplate=None)
     fig2.add_vline(x=focal_words, line_dash="dash", line_color="red")
     fig2.update_layout(xaxis_title="Words", yaxis=dict(visible=False))
 elif plot_type == "Histogram":
