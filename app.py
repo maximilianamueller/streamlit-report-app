@@ -54,10 +54,10 @@ elif benchmark_type == "Rating Peers":
 
 # Plot type selection
 st.sidebar.header("Chart Type")
-plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Violin Plot", "Histogram", "Bar Chart"])
+plot_type = st.sidebar.radio("Select plot type:", ["Strip Plot", "Bar Chart", "Histogram"])
 
 # Title
-st.title("PDF Report Benchmarking")
+st.title("CSRD Report Benchmarking")
 
 # Focal values
 focal_pages = df.loc[df['name'] == focal_company, 'pagespdf'].values[0]
@@ -76,13 +76,12 @@ if plot_type == "Strip Plot":
                   .update_traces(marker=dict(color='red', size=10)).data[0])
     fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(yaxis=dict(visible=False), xaxis_title="Pages")
-elif plot_type == "Violin Plot":
-    fig = px.violin(benchmark_df, x="pagespdf", box=True, points=False, hover_data={})
-    fig.update_traces(hoverinfo="skip", hovertemplate=None)
-    fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
-    fig.update_layout(xaxis_title="Pages", yaxis=dict(visible=False))
 elif plot_type == "Histogram":
-    fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
+    if len(benchmark_df) <= 3:
+        st.warning("Histogram requires more than 3 peers.")
+        fig = go.Figure()
+    else:
+        fig = px.histogram(benchmark_df, x="pagespdf", nbins=20, hover_name="name")
     fig.add_vline(x=focal_pages, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig.update_layout(xaxis_title="Pages", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
@@ -106,13 +105,12 @@ if plot_type == "Strip Plot":
                    .update_traces(marker=dict(color='red', size=10)).data[0])
     fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(yaxis=dict(visible=False), xaxis_title="Words")
-elif plot_type == "Violin Plot":
-    fig2 = px.violin(benchmark_df, x="words", box=True, points=False, hover_data={})
-    fig2.update_traces(hoverinfo="skip", hovertemplate=None)
-    fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
-    fig2.update_layout(xaxis_title="Words", yaxis=dict(visible=False))
 elif plot_type == "Histogram":
-    fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
+    if len(benchmark_df) <= 3:
+        st.warning("Histogram requires more than 3 peers.")
+        fig2 = go.Figure()
+    else:
+        fig2 = px.histogram(benchmark_df, x="words", nbins=20, hover_name="name")
     fig2.add_vline(x=focal_words, line_dash="dash", line_color="red", name=f"{focal_company}", showlegend=True)
     fig2.update_layout(xaxis_title="Words", yaxis_title="Number of Companies")
 elif plot_type == "Bar Chart":
