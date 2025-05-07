@@ -32,15 +32,15 @@ elif benchmark_type == "Economic Sector":
 elif benchmark_type == "Market Cap Tercile":
     value = df.loc[df['name'] == focal_company, 'market_cap_tercile'].values[0]
     benchmark_df = df[df['market_cap_tercile'] == value]
-    benchmark_label = f"Market Cap Tercile: {int(value)}"
+    benchmark_label = f"Market Cap Group: {'Small' if value == 1 else 'Mid' if value == 2 else 'Large'}"
 elif benchmark_type == "Employee Tercile":
     value = df.loc[df['name'] == focal_company, 'emp_tercile'].values[0]
     benchmark_df = df[df['emp_tercile'] == value]
-    benchmark_label = f"Employee Tercile: {int(value)}"
+    benchmark_label = f"Employee Size Group: {'Small' if value == 1 else 'Mid' if value == 2 else 'Large'}"
 elif benchmark_type == "Rating Tercile":
     value = df.loc[df['name'] == focal_company, 'rating_tercile'].values[0]
     benchmark_df = df[df['rating_tercile'] == value]
-    benchmark_label = f"Rating Tercile: {int(value)}"
+    benchmark_label = f"ESG Rating Group: {'Low' if value == 1 else 'Mid' if value == 2 else 'High'}"
 
 # Plot type selection
 st.sidebar.header("Chart Type")
